@@ -18,7 +18,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd /var/www/Mars-Game
+            cd /var/www/Mars-Request
             git config --global user.email 'mominovsharif12@gmail.com'
             git config --global user.name 'onlysharifjon'
             git stash --include-untracked
