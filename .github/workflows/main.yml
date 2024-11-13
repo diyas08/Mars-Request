@@ -1,0 +1,29 @@
+name: Deploy to server
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repo ni olish
+        uses: actions/checkout@v2
+
+      - name: Serverga SSH orqali ulanish va kodlarni yangilash
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            cd /var/www/Mars-Game
+            git config --global user.email 'mominovsharif12@gmail.com'
+            git config --global user.name 'onlysharifjon'
+            git stash --include-untracked
+            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
+            source env/bin/activate.fish
+            mkdir -p WorkedWorkflow
